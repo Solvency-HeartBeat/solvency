@@ -1,0 +1,17 @@
+[
+  {
+    "_comment": "CC-BY-4.0 — Solvency Heartbeat seed dataset. Replace with real anchor data.",
+    "issuer": "GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5",
+    "assetCode": "USDC",
+    "pegCurrency": "USD",
+    "freshnessWindowSecs": 86400,
+    "description": "Demo USDC anchor (testnet only)"
+  },
+  {
+    "issuer": "GCEZWKCA5VLDNRLN3RPRJMRZOX3Z6G5CHCGZS9R8E1NF4OXNCRD4STNV",
+    "assetCode": "BEUR",
+    "pegCurrency": "EUR",
+    "freshnessWindowSecs": 86400,
+    "description": "Demo EUR anchor (testnet only)"
+  }
+]
