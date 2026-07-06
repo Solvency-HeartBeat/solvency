@@ -1,23 +1,44 @@
-# Rust
-target/
-Cargo.lock
-
-# Node
+# ── Dependencies ──────────────────────────────────────────
 node_modules/
+
+# ── Build outputs ──────────────────────────────────────────
 dist/
 .next/
 out/
 
-# Env files (never commit secrets)
+# ── Rust / Cargo ───────────────────────────────────────────
+target/
+
+# ── Environment secrets — NEVER commit these ──────────────
 .env
 .env.local
+.env.production
 .env.*.local
 
-# OS
+# Keep examples
+!.env.example
+
+# ── Logs ──────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── OS / Editor ────────────────────────────────────────────
 .DS_Store
 Thumbs.db
-
-# Editor
-.vscode/
+.vscode/settings.json
 .idea/
-*.swp
+
+# ── TypeScript ─────────────────────────────────────────────
+*.tsbuildinfo
+
+# ── Debug / temp scripts (generated during development) ───
+engine/setup.mjs
+engine/setup_contract.mjs
+engine/deploy_and_setup.mjs
+engine/create_and_setup.mjs
+engine/find_contract.mjs
+engine/get_contract_id.mjs
+engine/decode_contract_id.mjs
+engine/check_api.mjs

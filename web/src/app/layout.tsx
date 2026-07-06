@@ -18,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <span className="text-xs text-slate-500 ml-2">Stellar Trust-Oracle</span>
           </div>
           <a
-            href="https://github.com/stellar-trust-oracle/solvency_heartbeat"
+            href="https://github.com/Solvency-HeartBeat/solvency"
             target="_blank"
             rel="noreferrer"
             className="text-xs text-slate-500 hover:text-slate-300 transition-colors"

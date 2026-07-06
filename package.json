@@ -1,0 +1,26 @@
+{
+  "name": "solvency-heartbeat",
+  "version": "0.1.0",
+  "description": "Real-time proof-of-reserves oracle for Stellar stablecoin anchors",
+  "private": true,
+  "workspaces": [
+    "engine",
+    "sdk",
+    "web"
+  ],
+  "scripts": {
+    "dev:engine": "npm run dev --workspace=engine",
+    "dev:web": "npm run dev --workspace=web",
+    "build:engine": "npm run build --workspace=engine",
+    "build:web": "npm run build --workspace=web",
+    "build:sdk": "npm run build --workspace=sdk",
+    "build:contract": "cargo build --target wasm32-unknown-unknown --release -p solvency_heartbeat",
+    "test:contract": "cargo test -p solvency_heartbeat --features testutils",
+    "lint:engine": "npm run lint --workspace=engine",
+    "lint:web": "npm run lint --workspace=web"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "Apache-2.0"
+}
