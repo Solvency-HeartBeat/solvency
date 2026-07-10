@@ -1,10 +1,32 @@
+<p align="center">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+    <defs>
+      <linearGradient id="pulse" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#22c55e"/>
+        <stop offset="100%" style="stop-color:#f59e0b"/>
+      </linearGradient>
+      <filter id="glow">
+        <feGaussianBlur stdDeviation="3" result="blur"/>
+        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    <rect width="120" height="120" rx="28" fill="#0a0f1e"/>
+    <rect width="120" height="120" rx="28" fill="none" stroke="#22c55e" stroke-width="1.5" opacity="0.3"/>
+    <polyline points="8,60 22,60 30,34 40,86 50,46 60,60 74,60 82,38 92,80 100,54 108,60 120,60" fill="none" stroke="url(#pulse)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+    <circle cx="60" cy="60" r="5" fill="#22c55e" opacity="0.9" filter="url(#glow)"/>
+  </svg>
+</p>
+
 # Solvency Heartbeat
 
-> Real-time proof-of-reserves oracle for Stellar stablecoin anchors — on-chain, verifiable, composable.
+<p align="center"><b>Real-time proof-of-reserves oracle for Stellar stablecoin anchors — on-chain, verifiable, composable.</b></p>
 
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Network: Stellar Testnet](https://img.shields.io/badge/network-Stellar%20Testnet-7B2FBE)](https://stellar.org)
-[![Built with Soroban](https://img.shields.io/badge/built%20with-Soroban-FF6B35)](https://soroban.stellar.org)
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"/></a>
+  <a href="https://stellar.org"><img src="https://img.shields.io/badge/network-Stellar%20Testnet-7B2FBE" alt="Stellar Testnet"/></a>
+  <a href="https://soroban.stellar.org"><img src="https://img.shields.io/badge/built%20with-Soroban-FF6B35" alt="Soroban"/></a>
+  <a href="https://github.com/Solvency-HeartBeat/solvency/actions"><img src="https://img.shields.io/github/actions/workflow/status/Solvency-HeartBeat/solvency/ci.yml?label=CI" alt="CI"/></a>
+</p>
 
 ---
 
