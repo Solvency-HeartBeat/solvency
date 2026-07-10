@@ -5,6 +5,7 @@
 Before opening an issue, please check these resources:
 
 **1. Documentation**
+- [Live Dashboard](https://solvency-web.vercel.app) — see it running
 - [README](README.md) — architecture, quick start, contract API, SDK usage
 - [CONTRIBUTING](CONTRIBUTING.md) — development setup and guidelines
 

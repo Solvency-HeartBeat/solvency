@@ -8,7 +8,7 @@ authors:
   - name: Solvency Heartbeat Contributors
     website: https://github.com/Solvency-HeartBeat
 repository-code: https://github.com/Solvency-HeartBeat/solvency
-url: https://github.com/Solvency-HeartBeat/solvency
+url: https://solvency-web.vercel.app
 abstract: >-
   Real-time proof-of-reserves oracle for Stellar stablecoin anchors.
   Scores anchor solvency on-chain via Soroban every 5 minutes using

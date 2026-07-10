@@ -11,6 +11,7 @@
   <a href="https://stellar.org"><img src="https://img.shields.io/badge/network-Stellar%20Testnet-7B2FBE" alt="Stellar Testnet"/></a>
   <a href="https://soroban.stellar.org"><img src="https://img.shields.io/badge/built%20with-Soroban-FF6B35" alt="Soroban"/></a>
   <a href="https://github.com/Solvency-HeartBeat/solvency/actions"><img src="https://img.shields.io/github/actions/workflow/status/Solvency-HeartBeat/solvency/ci.yml?label=CI" alt="CI"/></a>
+  <a href="https://solvency-web.vercel.app"><img src="https://img.shields.io/badge/demo-live-22c55e?logo=vercel" alt="Live Demo"/></a>
 </p>
 
 ---
