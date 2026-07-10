@@ -1,0 +1,22 @@
+# CODEOWNERS — auto-assigns reviewers when files are changed in a PR.
+# Format: <pattern>  <@github-username or @org/team>
+#
+# Replace @Solvency-HeartBeat with your actual GitHub username or team.
+
+# Default owner for everything
+*                                          @Solvency-HeartBeat
+
+# Soroban contract — extra scrutiny on any contract changes
+/contracts/                                @Solvency-HeartBeat
+
+# CI/CD changes
+/.github/                                  @Solvency-HeartBeat
+
+# Dashboard
+/web/                                      @Solvency-HeartBeat
+
+# Off-chain engine
+/engine/                                   @Solvency-HeartBeat
+
+# SDK
+/sdk/                                      @Solvency-HeartBeat

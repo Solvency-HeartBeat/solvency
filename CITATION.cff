@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+title: Solvency Heartbeat
+message: >-
+  If you use Solvency Heartbeat in your research or project,
+  please cite it using the metadata below.
+type: software
+authors:
+  - name: Solvency Heartbeat Contributors
+    website: https://github.com/Solvency-HeartBeat
+repository-code: https://github.com/Solvency-HeartBeat/solvency
+url: https://github.com/Solvency-HeartBeat/solvency
+abstract: >-
+  Real-time proof-of-reserves oracle for Stellar stablecoin anchors.
+  Scores anchor solvency on-chain via Soroban every 5 minutes using
+  reserve ratio, peg deviation, attestation freshness, and redemption velocity.
+keywords:
+  - stellar
+  - soroban
+  - stablecoin
+  - proof-of-reserves
+  - defi
+  - blockchain
+  - oracle
+license: Apache-2.0
+version: 0.1.0
+date-released: '2026-07-06'
