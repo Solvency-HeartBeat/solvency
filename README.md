@@ -2,7 +2,7 @@
   <img src="assets/logo.svg" alt="Solvency Heartbeat Logo" width="120"/>
 </p>
 
-# Solvency Heartbeat
+<h1 align="center">Solvency Heartbeat</h1>
 
 <p align="center"><b>Real-time proof-of-reserves oracle for Stellar stablecoin anchors — on-chain, verifiable, composable.</b></p>
 
