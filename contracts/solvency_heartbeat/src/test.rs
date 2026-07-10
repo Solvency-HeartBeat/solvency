@@ -11,21 +11,21 @@ fn setup() -> (Env, Address, Address, Address) {
     let env = Env::default();
     env.mock_all_auths();
 
-    let contract_id = env.register_contract(None, SolvencyHeartbeat);
-    let admin = Address::generate(&env);
-    let relayer = Address::generate(&env);
-
-    // Set ledger timestamp
+    // Protocol 22 required by soroban-sdk v22
     env.ledger().set(LedgerInfo {
         timestamp: 1_000_000,
-        protocol_version: 21,
+        protocol_version: 22,
         sequence_number: 1,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_ttl: 1000,
-        min_persistent_entry_ttl: 1000,
+        min_temp_entry_ttl: 1_000,
+        min_persistent_entry_ttl: 1_000,
         max_entry_ttl: 10_000,
     });
+
+    let contract_id = env.register(SolvencyHeartbeat, ());
+    let admin   = Address::generate(&env);
+    let relayer = Address::generate(&env);
 
     (env, contract_id, admin, relayer)
 }
@@ -38,11 +38,11 @@ fn make_hash(env: &Env) -> BytesN<32> {
 
 #[test]
 fn test_initialize() {
-    let (env, contract_id, admin, _relayer) = setup();
+    let (env, contract_id, admin, _) = setup();
     let client = SolvencyHeartbeatClient::new(&env, &contract_id);
 
     client.initialize(&admin);
-    // Double-init should fail
+    // Double-init must fail
     let res = client.try_initialize(&admin);
     assert!(res.is_err());
 }
@@ -51,7 +51,7 @@ fn test_initialize() {
 
 #[test]
 fn test_register_anchor() {
-    let (env, contract_id, admin, _relayer) = setup();
+    let (env, contract_id, admin, _) = setup();
     let client = SolvencyHeartbeatClient::new(&env, &contract_id);
     client.initialize(&admin);
 
@@ -98,7 +98,7 @@ fn test_submit_reserve_healthy() {
     client.initialize(&admin);
     client.add_relayer(&relayer);
 
-    let issuer = Address::generate(&env);
+    let issuer   = Address::generate(&env);
     let attestor = Address::generate(&env);
 
     client.register_anchor(
@@ -109,16 +109,16 @@ fn test_submit_reserve_healthy() {
     );
     client.add_attestor(&issuer, &attestor);
 
-    // Push issued supply via relayer first
+    // Push issued supply
     client.set_market(&relayer, &issuer, &1_000_000u128, &0i32, &0u32);
 
-    // Submit reserve equal to issued → ratio = 10 000 bps (100 %)
+    // Reserves = issued → ratio = 10 000 bps (100 %)
     client.submit_reserve(
         &issuer,
         &attestor,
         &1_000_000u128,
         &String::from_str(&env, "USD"),
-        &1_000_000u64, // same as ledger ts
+        &1_000_000u64,
     );
 
     let health = client.get_anchor_health(&issuer);
@@ -133,7 +133,7 @@ fn test_submit_reserve_under_collateralised() {
     client.initialize(&admin);
     client.add_relayer(&relayer);
 
-    let issuer = Address::generate(&env);
+    let issuer   = Address::generate(&env);
     let attestor = Address::generate(&env);
 
     client.register_anchor(
@@ -145,7 +145,7 @@ fn test_submit_reserve_under_collateralised() {
     client.add_attestor(&issuer, &attestor);
     client.set_market(&relayer, &issuer, &1_000_000u128, &0i32, &0u32);
 
-    // Reserves = 750 000, issued = 1 000 000 → ratio = 7 500 bps (75 %)
+    // Reserves = 750 000, issued = 1 000 000 → ratio = 7 500 bps (75 %) → Danger
     client.submit_reserve(
         &issuer,
         &attestor,
@@ -166,7 +166,7 @@ fn test_submit_reserve_invalid_attestor_fails() {
     client.initialize(&admin);
     client.add_relayer(&relayer);
 
-    let issuer = Address::generate(&env);
+    let issuer    = Address::generate(&env);
     let bad_actor = Address::generate(&env);
 
     client.register_anchor(
@@ -195,7 +195,7 @@ fn test_stale_attestation_downgrades() {
     client.initialize(&admin);
     client.add_relayer(&relayer);
 
-    let issuer = Address::generate(&env);
+    let issuer   = Address::generate(&env);
     let attestor = Address::generate(&env);
 
     client.register_anchor(
@@ -207,7 +207,7 @@ fn test_stale_attestation_downgrades() {
     client.add_attestor(&issuer, &attestor);
     client.set_market(&relayer, &issuer, &1_000_000u128, &0i32, &0u32);
 
-    // Attestation at t=0
+    // Attest at t = 1_000_000
     client.submit_reserve(
         &issuer,
         &attestor,
@@ -216,19 +216,19 @@ fn test_stale_attestation_downgrades() {
         &1_000_000u64,
     );
 
-    // Advance ledger by 25 hours — attestation is now stale
+    // Advance ledger 25 h — attestation becomes stale
     env.ledger().set(LedgerInfo {
         timestamp: 1_000_000 + 90_001, // > 86 400
-        protocol_version: 21,
+        protocol_version: 22,
         sequence_number: 2,
         network_id: Default::default(),
         base_reserve: 10,
-        min_temp_entry_ttl: 1000,
-        min_persistent_entry_ttl: 1000,
+        min_temp_entry_ttl: 1_000,
+        min_persistent_entry_ttl: 1_000,
         max_entry_ttl: 10_000,
     });
 
-    // set_market triggers recompute
+    // set_market re-evaluates status
     client.set_market(&relayer, &issuer, &1_000_000u128, &0i32, &0u32);
     let health = client.get_anchor_health(&issuer);
     assert_eq!(health.status, 3); // Stale
@@ -243,7 +243,7 @@ fn test_peg_deviation_watch() {
     client.initialize(&admin);
     client.add_relayer(&relayer);
 
-    let issuer = Address::generate(&env);
+    let issuer   = Address::generate(&env);
     let attestor = Address::generate(&env);
 
     client.register_anchor(
@@ -262,7 +262,7 @@ fn test_peg_deviation_watch() {
         &1_000_000u64,
     );
 
-    // 3.5 % peg deviation (350 bps > 300 bps threshold) → Watch
+    // 350 bps peg deviation > 300 bps threshold → Watch
     client.set_market(&relayer, &issuer, &1_000_000u128, &350i32, &0u32);
     let health = client.get_anchor_health(&issuer);
     assert_eq!(health.status, 1); // Watch
@@ -272,7 +272,7 @@ fn test_peg_deviation_watch() {
 
 #[test]
 fn test_set_market_unauthorized_fails() {
-    let (env, contract_id, admin, _relayer) = setup();
+    let (env, contract_id, admin, _) = setup();
     let client = SolvencyHeartbeatClient::new(&env, &contract_id);
     client.initialize(&admin);
 
